@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新年快乐</title>
+    <title>名单</title>
     <style>
     body {
         color: #333;
@@ -23,26 +23,25 @@
 </head>
 
 <body>
-    <div>
-        <span id="userName"></span>
-        <div id="message"></div>
-        <div id="table"></div>
-    </div>
+    <div id="table"></div>
     <script src="./qrcode.min.js"></script>
     <script src="./data.js"></script>
     <script>
-    var userName = getQueryVariable('name');
-    var item = users.find(v => {
-        return v.userName === userName;
-    }) || users[randomIntFromInterval(0, users.length - 1)];
-    document.querySelector('#userName').innerText = userName || '朋友';
-    document.querySelector('#message').innerText = item.message;
-
     const columns = [
         { label: '姓名', prop: 'userName', width: '100px' },
         { label: '祝福语', prop: 'message' },
         { label: '二维码', prop: 'qrcoe', width: '300px' },
     ];
+    document.querySelector('#table').innerHTML = renderTableHtml(columns, users);
+    users.forEach((v, i) => {
+        const text = `https://kristazhou.github.io/happyNewYear/index.html?userName=${v.userName}`;
+        const td = document.querySelector(`tr:nth-child(${i + 1}) td:nth-child(3)`);
+        QRCode.toDataURL(text, (err, url) => {
+            const img = document.createElement('img');
+            img.src = url;
+            td.appendChild(img);
+        });
+    });
     </script>
 </body>
 
