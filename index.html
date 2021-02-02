@@ -24,14 +24,14 @@
 
 <body>
     <div>
+        <span>hi, </span>
         <span id="userName"></span>
         <div id="message"></div>
-        <div id="table"></div>
     </div>
     <script src="./qrcode.min.js"></script>
     <script src="./data.js"></script>
     <script>
-    var userName = getQueryVariable('name');
+    var userName = getQueryVariable('userName');
     var item = users.find(v => {
         return v.userName === userName;
     }) || users[randomIntFromInterval(0, users.length - 1)];
