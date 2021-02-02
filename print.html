@@ -8,6 +8,11 @@
     <style>
     body {
         color: #333;
+        margin: 0;
+    }
+
+    #app {
+        padding: 10px;
     }
 
     table {
@@ -23,7 +28,7 @@
 </head>
 
 <body>
-    <div id="table"></div>
+    <div id="app"></div>
     <script src="./qrcode.min.js"></script>
     <script src="./data.js"></script>
     <script>
@@ -32,7 +37,7 @@
         { label: '祝福语', prop: 'message' },
         { label: '二维码', prop: 'qrcoe', width: '300px' },
     ];
-    document.querySelector('#table').innerHTML = renderTableHtml(columns, users);
+    document.querySelector('#app').innerHTML = renderTableHtml(columns, users);
     users.forEach((v, i) => {
         const text = `https://kristazhou.github.io/happyNewYear/index.html?userName=${v.userName}`;
         const td = document.querySelector(`tr:nth-child(${i + 1}) td:nth-child(3)`);
