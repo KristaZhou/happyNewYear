@@ -14,19 +14,7 @@
                 height: 100vh;
                 padding: 10px;
                 display: none;
-                max-width: 100%;
                 box-sizing: border-box;
-                display: inline-block;
-                width: 677px;
-                vertical-align: top;
-                border-width: 1px;
-                border-style: none;
-                border-color: rgba(237, 209, 166, 0.28);
-                overflow: hidden;
-                background-position: 0% 0%;
-                background-repeat: repeat-y;
-                background-size: 100%;
-                background-attachment: scroll;
                 background-image: url("./assets/images/star.gif");
                 overflow-wrap: break-word !important;
             }
@@ -46,7 +34,7 @@
                 font-size: 20px;
             }
             #app .userName {
-                padding: 100px 20px 0 20px;
+                padding: 30px 20px 0 20px;
             }
             #app .message {
                 padding: 20px 20px 0 20px;
@@ -57,6 +45,25 @@
                 right: -10px;
                 bottom: -10px;
                 width: calc(100% + 20px);
+            }
+            .kai-wrap {
+                text-align: center;
+                padding: 20px;
+                display: none;
+            }
+            .kai {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                line-height: 100px;
+                display: inline-block;
+                font-size: 40px;
+                color: #000;
+                background-color: #d6c49b;
+            }
+            .hongbao {
+                text-align: center;
+                display: none;
             }
         </style>
     </head>
@@ -74,6 +81,13 @@
                 <span id="userName"></span>
             </div>
             <div class="message" id="message"></div>
+            <div class="kai-wrap" id="kai-wrap">
+                <div class="kai" id="kai">開</div>
+            </div>
+            <div class="hongbao" id="hongbao">
+                <span id="money"></span>
+                <span>元</span>
+            </div>
             <iframe
                 frameborder="no"
                 border="0"
@@ -84,7 +98,6 @@
                 src="//music.163.com/outchain/player?type=2&id=1337150259&auto=1&height=66"
             ></iframe>
         </div>
-        <script src="./qrcode.min.js"></script>
         <script src="./data.js"></script>
         <script>
             document.querySelector("#app").style.display = "block";
@@ -94,7 +107,20 @@
                     return v.userName === userName;
                 }) || users[randomIntFromInterval(0, users.length - 1)];
             document.querySelector("#userName").innerText = userName || "朋友";
+            if (userName) {
+                document.querySelector("#kai-wrap").style.display = 'block';
+            }
+            var clickCount = 0;
             document.querySelector("#message").innerText = item.message;
+            document.querySelector("#kai").onclick = function() {
+                clickCount++;
+                if (clickCount > 3) {
+                    alert('最多抽奖3次');
+                    return;
+                }
+                document.querySelector("#money").innerText = randomFloatFromInterval(0.66, 6.66);
+                document.querySelector("#hongbao").style.display = 'block';
+            };
         </script>
     </body>
 </html>
