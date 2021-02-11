@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>名单</title>
+        <style>
+            body {
+                color: rgb(255, 218, 169);
+                margin: 0;
+                background-color: rgb(161, 0, 5);
+            }
+
+            .slogan {
+                padding: 10px;
+            }
+
+            #app {
+                height: 100vh;
+                padding: 10px;
+                display: none;
+                box-sizing: border-box;
+                background-image: url("./assets/images/star.gif");
+                overflow-wrap: break-word !important;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            table th,
+            table td {
+                padding: 10px;
+                border: 1px solid #eee;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="slogan">
+            <div style="text-align: center;font-size: 22px;">银鼠辞旧岁，金牛迎新春</div>
+            <div>请认领各自的专属新春祝福语及红包🧧, 红包金额随机~</div>
+            <div>二维码扫描打开后的页面, 截图中奖金额到区域微信群里, 兑换等额红包~</div>
+        </div>
+        <div id="app"></div>
+        <script src="./qrcode.min.js"></script>
+        <script src="./data.js"></script>
+        <script>
+            const columns = [
+                { label: "姓名", prop: "userName", width: "10px" },
+                // { label: '祝福语', prop: 'message' },
+                { label: "二维码", prop: "qrcoe", width: "30px" },
+            ];
+            document.querySelector("#app").innerHTML = renderTableHtml(
+                columns,
+                users
+            );
+            users.forEach((v, i) => {
+                const text = `https://kristazhou.github.io/happyNewYear/index.html?userName=${v.userName}`;
+                const td = document.querySelector(
+                    `tr:nth-child(${i + 1}) td:nth-child(2)`
+                );
+                QRCode.toDataURL(text, { width: 80 }, (err, url) => {
+                    const img = document.createElement("img");
+                    img.src = url;
+                    td.appendChild(img);
+                });
+            });
+            document.querySelector("#app").style.display = 'block';
+        </script>
+    </body>
+</html>
